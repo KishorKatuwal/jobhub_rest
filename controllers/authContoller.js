@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const CryptoJS = require("crypto-js");
+const jwt = require("jsonwebtoken");
 
 module.exports = {
 
@@ -33,8 +34,9 @@ module.exports = {
             depassword !== req.body.password && res.status(401).json("Wrong Password");
             //removing unwanted returing responses
             const {password, __v, createdAt, ...others } = user._doc;
+            const userToken = jwt.sign({id: user._id}, process.env.SECRET_KEY);
             //returning response to user
-            res.status(200).json(others);
+            res.status(200).json({userToken, ...others});
         }catch(error){
             res.status(500).json(error);
         }
