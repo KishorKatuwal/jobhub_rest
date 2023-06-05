@@ -11,14 +11,14 @@ module.exports = {
       ).toString();
     }
     try {
-      const UpdateUser = await User.findByIdAndUpdate(
+      const updatedUser = await User.findByIdAndUpdate(
         req.user.id,
         {
           $set: req.body,
         },
         { new: true }
       );
-      const { password, __v, createdAt, ...others } = this.updateUser._doc;
+      const { password, __v, createdAt, ...others } = updatedUser._doc;
       res.status(200).json({ ...others });
     } catch (error) {
       res.status(500).json(error);
