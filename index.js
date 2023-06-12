@@ -45,9 +45,10 @@ const io = require("socket.io")(server, {
 
 io.on("connection", (socket) => {
   console.log("Connected to socket");
+
   socket.on("setup", (userId) => {
     socket.join(userId);
-    socket.boradcast.emit("online-user", userId);
+    socket.broadcast.emit("online-user", userId);
     console.log(userId);
   });
 
