@@ -30,9 +30,14 @@ const JobSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    requiremnts: {
+    requirements: {
       type: Array,
       required: true,
+    },
+    hiring:{
+      type: Boolean,
+      required: false,
+      default: false,
     },
     imageUrl: {
       type: String,

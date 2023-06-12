@@ -20,8 +20,11 @@ module.exports = {
   },
 
   deleteBookmark: async (req, res) => {
+
     try {
-      await Bookmark.findByIdAndDelete(req.params.id);
+      const userId = req.user.id;
+      const job = req.params.id;
+      await Bookmark.findOneAndDelete({userId, job});
       res.status(200).json("Bookmark Successfully Deleted");
     } catch (error) {
       res.status(500).json(error);
@@ -30,7 +33,8 @@ module.exports = {
 
   getBookmarks: async (req, res) => {
     try {
-      const bookmarks = await Bookmark.findById({ userId: req.params.userId });
+      console.log(req.user.id);
+      const bookmarks = await Bookmark.find({ userId: req.user.id });
       res.status(200).json(bookmarks);
     } catch (error) {
       res.status(500).json(error);

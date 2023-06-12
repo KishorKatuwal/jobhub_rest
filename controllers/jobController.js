@@ -38,9 +38,9 @@ module.exports = {
   getJob: async (req, res) => {
     try {
       const job = await Job.findById(req.params.id);
-      const { __v, createdAt, updatedAt, ...updatedJobInfo } = job._doc;
+      const { __v, createdAt, ...updatedJobInfo } = job._doc;
       res.status(200).json(updatedJobInfo);
-      //   res.status(200).json(job);
+      //res.status(200).json(job);
     } catch (error) {
       res.status(500).json(error);
     }
@@ -49,9 +49,9 @@ module.exports = {
   getAllJobs: async (req, res) => {
     try {
       const jobs = await Job.find();
-      const { __v, createdAt, updatedAt, ...updatedJobInfo } = jobs._doc;
-      res.status(200).json(updatedJobInfo);
-      //   res.status(200).json(jobs);
+      // const { __v, createdAt, updatedAt, ...updatedJobInfo } = jobs._doc;
+      // res.status(200).json(updatedJobInfo);
+      res.status(200).json(jobs);
     } catch (error) {
       res.status(500).json(error);
     }
@@ -59,7 +59,7 @@ module.exports = {
 
   searchJobs: async (req, res) => {
     try {
-      const results = await Job.aggreagete([
+      const results = await Job.aggregate([
         {
           $search: {
             index: "jobsearch",
@@ -72,7 +72,7 @@ module.exports = {
           },
         },
       ]);
-
+      console.log(results);
       res.status(200).json(results);
     } catch (error) {
       res.status(500).json(error);

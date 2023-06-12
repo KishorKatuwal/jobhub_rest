@@ -11,6 +11,8 @@ module.exports = {
       ).toString();
     }
     try {
+      console.log("ready");
+      console.log(req.body);
       const updatedUser = await User.findByIdAndUpdate(
         req.user.id,
         {
@@ -38,9 +40,10 @@ module.exports = {
   //Get user
   getUser: async (req, res) => {
     try {
+      console.log("hit k here");
       const user = await User.findById(req.user.id);
-
-      const {passowrd, __v, createdAt, updatedAt, ...userData} = user._doc;
+      const {password, __v, createdAt, ...userData} = user._doc;
+      console.log(userData);
       res.status(200).json(userData);
     } catch (error) {
       res.status(500).json(error);

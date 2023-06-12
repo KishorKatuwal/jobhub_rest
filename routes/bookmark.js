@@ -7,10 +7,10 @@ const {verifyAndAuthorization, verifyToken, verifyAnAdmin} = require("../middlew
 router.post("/", verifyAndAuthorization,bookmarkController.createBookmark);
 
 // DELETE BOOKMARKS
-router.delete("/:id", bookmarkController.deleteBookmark);
+router.delete("/:id",verifyAndAuthorization, bookmarkController.deleteBookmark);
 
 // GET BOOKMARKS
-router.get("/:userId", bookmarkController.getBookmarks);
+router.get("/",verifyAndAuthorization, bookmarkController.getBookmarks);
 
 
 

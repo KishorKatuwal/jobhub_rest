@@ -19,7 +19,7 @@ const verifyToken = (req, res, next) => {
 
 const verifyAndAuthorization = (req, res, next) => {
     verifyToken(req,res, ()=>{
-        if(req.user.id || req.user.isAdmin){
+        if(req.user.id || !req.user.isAdmin){
             next();
         }else{
             res.status(403).json("You are restricted to perform this Task");

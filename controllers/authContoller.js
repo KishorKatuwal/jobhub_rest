@@ -9,16 +9,15 @@ module.exports = {
         const newuser = new User({
             username: req.body.username,
             email: req.body.email,
-           //var decrypted = CryptoJS.AES.decrypt(encrypted, "Secret Passphrase");
             password: CryptoJS.AES.encrypt(req.body.password, process.env.SECRET_KEY).toString(),
         });
+        console.log(newuser);
         try{
             const saveUser = await newuser.save();
             res.status(201).json(saveUser);
         }catch(error){
             res.status(500).json(error);
         }
-
     },
 
     //login function
